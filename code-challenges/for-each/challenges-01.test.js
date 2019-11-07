@@ -9,10 +9,12 @@ Then, write a function named speaker that takes in a string and a callback funct
 ------------------------------------------------------------------------------------------------ */
 
 const greeting = (word) => {
-  // Solution code here...
+
+  return word.toUpperCase();
 };
 
 const speaker = (message, callback) => {
+  return callback(message);
   // Solution code here...
 };
 
@@ -33,10 +35,15 @@ Return the modified array.
 ------------------------------------------------------------------------------------------------ */
 
 const addValues = (arr, value) => {
+  arr.push(value);
   // Solution code here...
 };
 
 const addNumbers = (num, arr, times, callback) => {
+  while(times-- > 0){
+    callback(arr, num);
+  }
+  return arr;
   // Solution code here...
 };
 
@@ -54,9 +61,17 @@ Return the modified array.
 
 const removeOne = (num, arr) => {
   // Solution code here...
+  if(num % 3 === 2){
+    arr.pop();
+  }
 };
 
 const removeElements = (arr, callback) => {
+  // eslint-disable-next-line for-direction
+  for(let i = 0; i < arr.length; i++){
+    callback(arr[i], arr);
+  }
+  return arr;
   // Solution code here...
 };
 
@@ -67,6 +82,10 @@ Write a function named removeWithForEach that produces the same output as challe
 ------------------------------------------------------------------------------------------------ */
 
 const removeWithForEach = (arr, callback) => {
+  arr.forEach(Element =>{
+    callback(Element, arr);
+  });
+  return arr;
   // Solution code here...
 };
 
@@ -81,6 +100,12 @@ This anonymous function should accept up to three arguments: the element, the in
 ------------------------------------------------------------------------------------------------ */
 
 const removeWithAnon = (arr) => {
+  arr.forEach((element, index, arr) => {
+    if (element % 3 === 2){
+      arr.pop(index);
+    }
+  });
+  return arr;
   // Solution code here...
 };
 
@@ -102,6 +127,13 @@ This function should use forEach to populate your grocery list based on the stor
 ------------------------------------------------------------------------------------------------ */
 
 const createList = (availableItems) => {
+  let validList = [];
+  availableItems.forEach(item =>{
+    if(item.available){
+      validList.push(item.name);
+    }
+  });
+  return validList;
   // Solution code here...
 };
 
@@ -120,6 +152,20 @@ Return the resulting output array.
 ------------------------------------------------------------------------------------------------ */
 
 const fizzbuzz = (arr) => {
+  let validArray = [];
+  for(let i = 0; i < arr.length; i++){
+    if(arr[i] % 3 === 0 && arr[i] % 5 === 0){
+      validArray.push('Fizz Buzz');
+    }else if(arr[i] % 3 === 0){
+      validArray.push('Fizz');
+    } else if(arr[i] % 5 === 0){
+      validArray.push('Buzz');
+    }else{
+      validArray.push(arr[i]);
+    }
+  }
+  return validArray;
+
   // Solution code here...
 };
 
@@ -169,7 +215,7 @@ describe('Testing challenge 5', () => {
 });
 
 describe('Testing challenge 6', () => {
-  const inventory = [{ name: 'apples', available: true }, { name: 'pears', available: true }, { name: 'oranges', available: false }, { name: 'bananas', available: true }, { name: 'blueberries', available: false }];
+  const inventory = [{ name: 'apples', available: true, }, { name: 'pears', available: true, }, { name: 'oranges', available: false, }, { name: 'bananas', available: true, }, { name: 'blueberries', available: false, }];
 
   test('It should only add the available items to the list', () => {
     expect(createList(inventory)).toStrictEqual(['apples', 'pears', 'bananas']);
