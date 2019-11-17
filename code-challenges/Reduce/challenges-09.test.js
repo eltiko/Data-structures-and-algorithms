@@ -9,10 +9,10 @@ Note: You may not use the array's built-in length property.
 ------------------------------------------------------------------------------------------------ */
 
 const countNumberOfElements = (arr) => {
-  let reduction = arr.reduce(function(i){
+  let reduceNum = arr.reduce(function(i){
     return i = i + 1;
   }, 0);
-  return reduction;
+  return reduceNum;
   // Solution code here...
 };
 
@@ -73,6 +73,10 @@ let starWarsData = [{
 }];
 
 const returnNames = (arr) => {
+  return arr.reduce((total, person, idx) => {
+    total[idx] = person.name;
+    return total;
+  },[]);
   // Solution code here...
 };
 
@@ -85,6 +89,10 @@ Note: You must use reduce for this challenge. You may not use the built-in .reve
 ------------------------------------------------------------------------------------------------ */
 
 const reversedString = (str) => {
+  return str.split('').reduce((sum, letter, idx) => {
+    sum = `${letter}${sum}`;
+    return sum;
+  });
   // Solution code here...
 };
 
@@ -138,6 +146,10 @@ const characters = [
 ];
 
 const countNumberOfChildren = (arr) => {
+  return arr.reduce((total, person, idx) => {
+    if(person.children) total += person.children.length;
+    return total;
+  },0);
   // Solution code here...
 };
 
@@ -150,6 +162,14 @@ Hint: The accumulator should begin as { count: 0, sum: 0 }
 ------------------------------------------------------------------------------------------------ */
 
 const calculateAverage = (arr) => {
+  let totals = arr.reduce((total, val, idx) => {
+    if(total.count) total.count++;
+    else total.count = 1;
+    if(total.sum) total.sum += val;
+    else total.sum = val;
+    return total;
+  },{});
+  return totals.sum / (isNaN(totals.count) ? 1:totals.count);
   // Solution code here...
 };
 
@@ -171,6 +191,10 @@ const isPrime = (value) => {
 };
 
 const countPrimeNumbers = (arr) => {
+  return arr.reduce((somme, num, idx) => {
+    if(isPrime(num)) somme++;
+    return somme;
+  },0);
   // Solution code here...
 };
 
